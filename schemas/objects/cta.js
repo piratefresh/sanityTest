@@ -23,6 +23,20 @@ export default {
       type: "string",
     },
     {
+      title: "Bg Color",
+      name: "bgColor",
+      type: "string",
+      initialValue: "blue",
+      options: {
+        list: [
+          { title: "Blue", value: "blue" },
+          { title: "Red", value: "red" },
+          { title: "Green", value: "green" },
+          { title: "Yellow", value: "yellow" },
+        ],
+      },
+    },
+    {
       title: "Kind",
       name: "kind",
       type: "string",

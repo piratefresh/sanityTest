@@ -112,7 +112,14 @@ export default {
       type: "array",
       title: "Page sections",
       description: "Add, edit, and reorder sections",
-      of: [{ type: "hero" }, { type: "commonQuestions" }],
+      of: [
+        { type: "hero" },
+        { type: "commonQuestions" },
+        { type: "infoblocks" },
+        { type: "productcompare" },
+        { type: "textImageBlock" },
+        { type: "header" },
+      ],
     },
   ],
 

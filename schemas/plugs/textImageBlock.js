@@ -1,7 +1,7 @@
 export default {
   type: "object",
-  name: "hero",
-  title: "Hero",
+  name: "textImageBlock",
+  title: "Text Image Block",
   fields: [
     {
       name: "heading",
@@ -37,12 +37,11 @@ export default {
   preview: {
     select: {
       title: "heading",
-      imageUrl: "asset.url",
-      disabled: "disabled",
+      imageUrl: "asset",
     },
-    prepare({ title, disabled }) {
+    prepare({ title }) {
       return {
-        title: `Hero: ${disabled ? "DISABLED" : title}`,
+        title: `Text Image Block: ${title ? title : "Information Block"}`,
       };
     },
   },

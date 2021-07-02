@@ -1,5 +1,7 @@
 import React from "react";
 import S from "@sanity/desk-tool/structure-builder";
+import resolveProductionUrl from "./resolveProductionUrl";
+import Emoji from "a11y-react-emoji";
 
 const url = "http://localhost:3000/";
 const previewSecret = "MY_SECRET"; // Copy the string you used for SANITY_PREVIEW_SECRET
@@ -7,8 +9,9 @@ const projectUrl = "http://localhost:3000";
 
 const WebPreview = ({ document }) => {
   const { displayed } = document;
-
-  const targetURL = `${projectUrl}/api/preview?secret=${previewSecret}&slug=${displayed.slug.current}`;
+  const url = resolveProductionUrl(displayed);
+  const targetURL = url;
+  // const targetURL = `${projectUrl}/api/preview?secret=${previewSecret}&slug=${displayed.slug.current}`;
   //   const targetURL = url + displayed.slug.current + `/?preview=true`;
 
   return <iframe src={targetURL} frameBorder={0} width="100%" height="100%" />;
@@ -28,7 +31,15 @@ export const getDefaultDocumentNode = ({ schemaType }) => {
       S.view.component(WebPreview).title("Web Preview"),
     ]);
   }
+  if (schemaType === "indexPage") {
+    return S.document().views([
+      S.view.form(),
+      S.view.component(WebPreview).title("Web Preview"),
+    ]);
+  }
 };
+
+const ConfigIcon = () => <Emoji style={{ fontSize: "2rem" }} symbol="⚙️" />;
 
 export default () =>
   S.list()
@@ -36,6 +47,7 @@ export default () =>
     .items([
       S.listItem()
         .title("Settings")
+        .icon(ConfigIcon)
         .child(
           S.list()
             // Sets a title for our new list
@@ -54,6 +66,11 @@ export default () =>
                 .title("Promobar")
                 .child(
                   S.document().schemaType("promobar").documentId("promobar")
+                ),
+              S.listItem()
+                .title("Index Page")
+                .child(
+                  S.document().schemaType("indexPage").documentId("indexPage")
                 ),
               S.listItem()
                 .title("Site Colors")
